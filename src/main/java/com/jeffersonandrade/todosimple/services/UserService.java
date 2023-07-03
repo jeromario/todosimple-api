@@ -1,7 +1,6 @@
 package com.jeffersonandrade.todosimple.services;
 
 import com.jeffersonandrade.todosimple.models.User;
-import com.jeffersonandrade.todosimple.repositories.TaskRepository;
 import com.jeffersonandrade.todosimple.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

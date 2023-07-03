@@ -2,10 +2,9 @@ package com.jeffersonandrade.todosimple.controllers;
 
 import com.jeffersonandrade.todosimple.models.User;
 import com.jeffersonandrade.todosimple.services.UserService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

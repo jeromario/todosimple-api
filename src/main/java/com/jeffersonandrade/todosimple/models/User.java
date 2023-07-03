@@ -2,16 +2,19 @@ package com.jeffersonandrade.todosimple.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.*;
-import org.hibernate.Hibernate;
 
+import lombok.*;
+
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 @Getter
 @Setter
 @Entity
@@ -39,35 +42,5 @@ public class User {
     @JsonIgnore
     private List<Task> tasks = new ArrayList<>();
 
-    public User() {
-    }
-
-    public User(Long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof User)) return false;
-        User other = (User) obj;
-        if (this.id == null)
-            if (other.id != null)
-                return false;
-            else if (!this.id.equals(other.id)) {
-                return false;
-            }
-        return Objects.equals(this.id, other.id) && Objects.equals(this.username, other.username) && Objects.equals(this.password, other.password);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (this.id == null ? 0 : this.id.hashCode());
-        return result;
-    }
+    
 }
