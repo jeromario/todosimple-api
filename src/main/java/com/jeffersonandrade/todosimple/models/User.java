@@ -32,10 +32,11 @@ public class User {
     @NotBlank(groups = CreateUser.class)
     @Size(groups = CreateUser.class, min = 2, max = 100)
     private String username;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", length = 60,nullable = false)
     @NotBlank(groups = {CreateUser.class,UpdateUser.class})
-    @Size(groups = {CreateUser.class,UpdateUser.class}, min = 0,max = 60)
+    @Size(groups = {CreateUser.class,UpdateUser.class}, min = 8,max = 60)
     private String password;
 
     @OneToMany(mappedBy = "user")
