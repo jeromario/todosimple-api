@@ -1,6 +1,7 @@
 package com.jeffersonandrade.todosimple.configs;
 
 import com.jeffersonandrade.todosimple.security.JWTAuthenticationFilter;
+import com.jeffersonandrade.todosimple.security.JWTAuthorizationFilter;
 import com.jeffersonandrade.todosimple.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -59,6 +60,8 @@ public class SecurityConfig {
                 .authenticationManager(authenticationManager);
 
         http.addFilter(new JWTAuthenticationFilter(this.authenticationManager,this.jwtUtil));
+
+        http.addFilter(new JWTAuthorizationFilter(this.authenticationManager,this.jwtUtil,this.userDetailsService));
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
