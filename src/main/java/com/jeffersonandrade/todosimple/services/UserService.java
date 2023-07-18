@@ -3,13 +3,17 @@ package com.jeffersonandrade.todosimple.services;
 import com.jeffersonandrade.todosimple.models.User;
 import com.jeffersonandrade.todosimple.models.enums.ProfileEnums;
 import com.jeffersonandrade.todosimple.repositories.UserRepository;
+import com.jeffersonandrade.todosimple.security.UserSpringSecurity;
+import com.jeffersonandrade.todosimple.services.exceptions.AuthorizationException;
 import com.jeffersonandrade.todosimple.services.exceptions.DataBindingViolationException;
 import com.jeffersonandrade.todosimple.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,6 +29,10 @@ public class UserService {
 
 
     public User findById(Long id){
+        UserSpringSecurity userSpringSecurity = authentication();
+        if (!Objects.nonNull(userSpringSecurity) || !userSpringSecurity.hasRole(ProfileEnums.ADMIN) && !id.equals(userSpringSecurity.getId())){
+            throw new AuthorizationException("Acesso negado!");
+        }
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException(
                 "Usuario não encontrado! Id: " + id + ", Tipo: " + User.class.getName()));
@@ -51,6 +59,14 @@ public class UserService {
             userRepository.deleteById(id);
         }catch (Exception e){
             throw new DataBindingViolationException("Não é possivel excluir, pois há entidades relacionadas!");
+        }
+    }
+
+    public static UserSpringSecurity authentication(){
+        try {
+            return (UserSpringSecurity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }catch (Exception e){
+            return null;
         }
     }
 }
