@@ -1,6 +1,8 @@
 package com.jeffersonandrade.todosimple.controllers;
 
 import com.jeffersonandrade.todosimple.models.User;
+import com.jeffersonandrade.todosimple.models.dto.UserCreateDTO;
+import com.jeffersonandrade.todosimple.models.dto.UserUpdateDTO;
 import com.jeffersonandrade.todosimple.services.UserService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping
-    @Validated(User.CreateUser.class)
-    public ResponseEntity<Void>create(@Valid @RequestBody User user){
+    public ResponseEntity<Void>create(@Valid @RequestBody UserCreateDTO dto){
+        User user = userService.fromDTO(dto);
         userService.create(user);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -35,8 +37,9 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @Validated(User.UpdateUser.class)
-    public ResponseEntity<Void>update(@Valid @RequestBody User user,@PathVariable Long id){
+
+    public ResponseEntity<Void>update(@Valid @RequestBody UserUpdateDTO dto, @PathVariable Long id){
+        User user = userService.fromDTO(dto);
         user.setId(id);
         userService.update(user);
         return ResponseEntity.noContent().build();

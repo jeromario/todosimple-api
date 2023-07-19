@@ -3,6 +3,7 @@ package com.jeffersonandrade.todosimple.services;
 import com.jeffersonandrade.todosimple.models.Task;
 import com.jeffersonandrade.todosimple.models.User;
 import com.jeffersonandrade.todosimple.models.enums.ProfileEnums;
+import com.jeffersonandrade.todosimple.models.projection.TaskProjection;
 import com.jeffersonandrade.todosimple.repositories.TaskRepository;
 import com.jeffersonandrade.todosimple.security.UserSpringSecurity;
 import com.jeffersonandrade.todosimple.services.exceptions.AuthorizationException;
@@ -40,7 +41,7 @@ public class TaskService {
         return task;
     }
 
-    public List<Task>findAllByUser(){
+    public List<TaskProjection> findAllByUser(){
         UserSpringSecurity userSpringSecurity = UserService.authentication();
         if (Objects.isNull(userSpringSecurity)){
             throw new AuthorizationException("Acesso negado!");

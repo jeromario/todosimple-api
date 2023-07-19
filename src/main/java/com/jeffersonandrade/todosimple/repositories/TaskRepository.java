@@ -1,6 +1,7 @@
 package com.jeffersonandrade.todosimple.repositories;
 
 import com.jeffersonandrade.todosimple.models.Task;
+import com.jeffersonandrade.todosimple.models.projection.TaskProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    List<Task> findByUser_Id(Long id);
+    List<TaskProjection> findByUser_Id(Long id);
 
 //    @Query(value = "SELECT t FROM Task t WHERE t.user.id= :id")
 //    List<Task> findByUser_Id(@Param("id") Long id);

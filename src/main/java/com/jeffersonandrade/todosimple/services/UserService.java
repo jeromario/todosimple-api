@@ -1,6 +1,8 @@
 package com.jeffersonandrade.todosimple.services;
 
 import com.jeffersonandrade.todosimple.models.User;
+import com.jeffersonandrade.todosimple.models.dto.UserCreateDTO;
+import com.jeffersonandrade.todosimple.models.dto.UserUpdateDTO;
 import com.jeffersonandrade.todosimple.models.enums.ProfileEnums;
 import com.jeffersonandrade.todosimple.repositories.UserRepository;
 import com.jeffersonandrade.todosimple.security.UserSpringSecurity;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -68,5 +71,18 @@ public class UserService {
         }catch (Exception e){
             return null;
         }
+    }
+
+    public User fromDTO(@Valid UserCreateDTO dto){
+        User user = new User();
+        user.setUsername(dto.getUsername());
+        user.setPassword(dto.getPassword());
+        return user;
+    }
+    public User fromDTO(@Valid UserUpdateDTO dto){
+        User user = new User();
+        user.setId(dto.getId());
+        user.setPassword(dto.getPassword());
+        return user;
     }
 }

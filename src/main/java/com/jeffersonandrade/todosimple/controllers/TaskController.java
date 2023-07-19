@@ -1,6 +1,7 @@
 package com.jeffersonandrade.todosimple.controllers;
 
 import com.jeffersonandrade.todosimple.models.Task;
+import com.jeffersonandrade.todosimple.models.projection.TaskProjection;
 import com.jeffersonandrade.todosimple.services.TaskService;
 import com.jeffersonandrade.todosimple.services.UserService;
 import javax.validation.Valid;
@@ -31,9 +32,9 @@ public class TaskController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<Task>>findAllByUser(){
+    public ResponseEntity<List<TaskProjection>>findAllByUser(){
 
-        List<Task> taskList = taskService.findAllByUser();
+        List<TaskProjection> taskList = taskService.findAllByUser();
         return ResponseEntity.ok(taskList);
     }
 
