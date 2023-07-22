@@ -3,7 +3,6 @@ package com.jeffersonandrade.todosimple.controllers;
 import com.jeffersonandrade.todosimple.models.Task;
 import com.jeffersonandrade.todosimple.models.projection.TaskProjection;
 import com.jeffersonandrade.todosimple.services.TaskService;
-import com.jeffersonandrade.todosimple.services.UserService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +20,7 @@ public class TaskController {
 
     @Autowired
     private TaskService taskService;
-    @Autowired
-    private UserService userService;
+    
 
 
     @GetMapping("/{id}")
